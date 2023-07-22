@@ -15,7 +15,7 @@ videoWrite = cv2.VideoWriter(r"C:\Users\Sean\Desktop\NTUT_realtime_result_FPS24.
 
 files = os.listdir(r"C:\Users\Sean\Desktop\8500ALL")
 out_num = len(files)
-for i in range(1, out_num):
+for i in tqdm(range(1, out_num)):
     fileName = "C:/Users/Sean/Desktop/8500ALL/" + str(i)+ '.jpg' # 利用迴圈讀取所有圖片，並以數字命名
     img = cv2.imread(fileName)
     videoWrite.write(img) # 將圖片輸入到影片框架中

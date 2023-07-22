@@ -1,6 +1,7 @@
 import os
 import shutil
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 
 def create_dirs(base_dir, sub_dirs):
     for sub_dir in sub_dirs:
@@ -9,12 +10,12 @@ def create_dirs(base_dir, sub_dirs):
 def move_files(file_list, org_img_dir, org_label_dir, target_dir):
     target_img_dir = os.path.join(target_dir, 'images')
     target_label_dir = os.path.join(target_dir, 'labels')
-    for fn in file_list:
+    for fn in tqdm(file_list):
         shutil.move(os.path.join(org_img_dir, fn), os.path.join(target_img_dir, fn))
         shutil.move(os.path.join(org_label_dir, fn.replace('.jpg', '.txt')), os.path.join(target_label_dir, fn.replace('.jpg', '.txt')))
 
 # 創建新目錄
-base_path = "/home/Sean/Desktop"
+base_path = "/home/sean/Desktop"
 data_store = os.path.join(base_path, 'datasets')
 train_dir = os.path.join(data_store, 'train')
 test_dir = os.path.join(data_store, 'test')
@@ -24,9 +25,9 @@ create_dirs(train_dir, ['images', 'labels'])
 create_dirs(test_dir, ['images', 'labels'])
 create_dirs(valid_dir, ['images', 'labels'])
 
-# 圖像與標籤文件的目錄
-org_img_dir = os.path.join(base_path, 'ultralytics', 'Self_Driving_CarV2', 'datasets', 'images')
-org_label_dir = os.path.join(base_path, 'ultralytics', 'Self_Driving_CarV2', 'datasets', 'labels')
+# 待分割圖像與標籤文件的目錄
+org_img_dir = os.path.join(base_path, 'coco_dataset_arrange', 'extracted_train_dataset', 'images')
+org_label_dir = os.path.join(base_path, 'coco_dataset_arrange', 'extracted_train_dataset', 'labels')
 
 # 獲取所有圖像文件的名稱
 file_names = [f for f in os.listdir(org_img_dir) if f.endswith('.jpg')]
